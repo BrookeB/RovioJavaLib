@@ -9,9 +9,11 @@ import javax.swing.JOptionPane;
 
 import java.awt.Image;
 import java.awt.image.*;
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.*;
 
 /**
@@ -103,5 +105,83 @@ public class RJRobot {
 			}
 		}
 		return result;
+	}
+	
+	public boolean moveForward()
+	{
+		try {
+			
+			URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=18&drive=1&speed=5");
+			
+			URLConnection uc = url.openConnection();
+			uc.setDoOutput(true);
+			
+			BufferedReader in = new BufferedReader(new InputStreamReader(uc.getInputStream()));
+	        //Read anything returned by Rovio and print it
+	        String line;
+	        while ((line = in.readLine()) != null) {
+	            //System.out.println (line);
+	        }
+	        //Close connection
+	        in.close();
+			
+			return true;
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public boolean rotateRight()
+	{
+		try {
+			
+			URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=18&drive=6&speed=5");
+			
+			URLConnection uc = url.openConnection();
+			uc.setDoOutput(true);
+			
+			BufferedReader in = new BufferedReader(new InputStreamReader(uc.getInputStream()));
+	        //Read anything returned by Rovio and print it
+	        String line;
+	        while ((line = in.readLine()) != null) {
+	            //System.out.println (line);
+	        }
+	        //Close connection
+	        in.close();
+			
+			return true;
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public boolean rotateLeft()
+	{
+		try {
+			
+			URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=18&drive=5&speed=5");
+			
+			URLConnection uc = url.openConnection();
+			uc.setDoOutput(true);
+			
+			BufferedReader in = new BufferedReader(new InputStreamReader(uc.getInputStream()));
+	        //Read anything returned by Rovio and print it
+	        String line;
+	        while ((line = in.readLine()) != null) {
+	            //System.out.println (line);
+	        }
+	        //Close connection
+	        in.close();
+			
+			return true;
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+			return false;
+		}
 	}
 }
