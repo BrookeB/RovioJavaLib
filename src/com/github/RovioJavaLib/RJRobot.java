@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
 import java.awt.Image;
+import java.awt.event.KeyEvent;
 import java.awt.image.*;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -182,6 +183,17 @@ public class RJRobot {
 		{
 			e.printStackTrace();
 			return false;
+		}
+	}
+	public void keyPressed(KeyEvent ke) {
+		if (ke.getKeyCode() == KeyEvent.VK_UP) {
+			moveForward();
+		}
+		else if (ke.getKeyCode() == KeyEvent.VK_LEFT) {
+			rotateLeft();
+		}
+		else if (ke.getKeyCode() == KeyEvent.VK_RIGHT) {
+			rotateRight();
 		}
 	}
 }
