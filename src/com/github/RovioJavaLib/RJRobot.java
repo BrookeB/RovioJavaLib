@@ -185,7 +185,61 @@ public class RJRobot {
 			return false;
 		}
 	}
-	public boolean moveBackwards() {
+	
+	public boolean moveRight()
+	{
+		try {
+			
+			URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=18&drive=4&speed=5");
+			
+			URLConnection uc = url.openConnection();
+			uc.setDoOutput(true);
+			
+			BufferedReader in = new BufferedReader(new InputStreamReader(uc.getInputStream()));
+	        //Read anything returned by Rovio and print it
+	        String line;
+	        while ((line = in.readLine()) != null) {
+	            //System.out.println (line);
+	        }
+	        //Close connection
+	        in.close();
+			
+			return true;
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public boolean moveLeft()
+	{
+		try {
+			
+			URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=18&drive=3&speed=5");
+			
+			URLConnection uc = url.openConnection();
+			uc.setDoOutput(true);
+			
+			BufferedReader in = new BufferedReader(new InputStreamReader(uc.getInputStream()));
+	        //Read anything returned by Rovio and print it
+	        String line;
+	        while ((line = in.readLine()) != null) {
+	            //System.out.println (line);
+	        }
+	        //Close connection
+	        in.close();
+			
+			return true;
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public boolean moveBackwards()
+	{
 		try {
 			
 			URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=18&drive=2&speed=5");
@@ -209,7 +263,9 @@ public class RJRobot {
 			return false;
 		}
 	}
-	public void keyPressed(KeyEvent ke) {
+	
+	public void keyPressed(KeyEvent ke)
+	{
 		if (ke.getKeyCode() == KeyEvent.VK_UP) {
 			moveForward();
 		}
