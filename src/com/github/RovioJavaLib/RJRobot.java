@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 
 import java.awt.Image;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.*;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -20,7 +21,7 @@ import java.net.*;
 /**
  *
  */
-public class RJRobot {
+public class RJRobot implements KeyListener{
 	
 	private String _IP, _username, _password;
 	
@@ -264,6 +265,32 @@ public class RJRobot {
 		}
 	}
 	
+	public boolean stopMovement() 
+	{
+		try {
+			
+			URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=18&drive=1&speed=0");
+			
+			URLConnection uc = url.openConnection();
+			uc.setDoOutput(true);
+			
+			BufferedReader in = new BufferedReader(new InputStreamReader(uc.getInputStream()));
+	        //Read anything returned by Rovio and print it
+	        String line;
+	        while ((line = in.readLine()) != null) {
+	            //System.out.println (line);
+	        }
+	        //Close connection
+	        in.close();
+			
+			return true;
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
 	public void keyPressed(KeyEvent ke)
 	{
 		if (ke.getKeyCode() == KeyEvent.VK_UP) {
@@ -276,4 +303,10 @@ public class RJRobot {
 			rotateRight();
 		}
 	}
+	public void keyReleased(KeyEvent ke)
+	{
+		stopMovement();
+	}
+
+	public void keyTyped(KeyEvent ke) {}
 }
