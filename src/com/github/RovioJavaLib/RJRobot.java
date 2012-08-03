@@ -327,4 +327,50 @@ public class RJRobot {
 			return false;
 		}
 	}
+	public boolean lightsOff() {
+		try {
+
+			URL url = new URL(_baseURL + "mcu?parameters=114D4D00010053485254000100011A000000");
+
+			URLConnection uc = url.openConnection();
+			uc.setDoOutput(true);
+
+			BufferedReader in = new BufferedReader(new InputStreamReader(uc.getInputStream()));
+			// Read anything returned by Rovio and print it
+			String line;
+			while ((line = in.readLine()) != null) {
+				// System.out.println (line);
+			}
+			// Close connection
+			in.close();
+
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	public boolean lightsOn() {
+		try {
+
+			URL url = new URL(_baseURL + "mcu?parameters=114D4D00010053485254000100011AFF0000");
+
+			URLConnection uc = url.openConnection();
+			uc.setDoOutput(true);
+
+			BufferedReader in = new BufferedReader(new InputStreamReader(uc.getInputStream()));
+			// Read anything returned by Rovio and print it
+			String line;
+			while ((line = in.readLine()) != null) {
+				// System.out.println (line);
+			}
+			// Close connection
+			in.close();
+
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 }
