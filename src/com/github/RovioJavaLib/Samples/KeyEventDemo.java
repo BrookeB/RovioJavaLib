@@ -3,6 +3,8 @@ package com.github.RovioJavaLib.Samples;
 import java.awt.Frame;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 
 import com.github.RovioJavaLib.RJRobot;
@@ -10,7 +12,7 @@ import com.googlecode.javacv.CanvasFrame;
 import com.googlecode.javacv.cpp.opencv_core.IplImage;
 
 public class KeyEventDemo extends RJRobot implements KeyListener {
-	public RJRobot robot = new RJRobot("192.168.1.231", "admin", "gtri2012");
+	public static RJRobot robot = new RJRobot("192.168.1.231", "admin", "gtri2012");
 	boolean isContinuous = false;
 
 	/** Handle the key pressed event from the text field. */
@@ -34,46 +36,46 @@ public class KeyEventDemo extends RJRobot implements KeyListener {
 		if (keyCode == KeyEvent.VK_DOWN) {
 			robot.moveBackwards(isContinuous);
 		}
-		if (keyCode == KeyEvent.VK_L) {
+		if (keyCode == KeyEvent.VK_1) {
 			robot.rotateLeft(isContinuous);
 		}
-		if (keyCode == KeyEvent.VK_R) {
+		if (keyCode == KeyEvent.VK_2) {
 			robot.rotateRight(isContinuous);
 		}
-//		if (keyCode == KeyEvent.VK_D) {
-//			robot.diagnolLeft(isContinuous);
-//		}
-//		if (keyCode == KeyEvent.VK_S) {
-//			robot.diagnolRight(isContinuous);
-	///	}
-		if (keyCode == KeyEvent.VK_M) {
+		if (keyCode == KeyEvent.VK_3) {
+			robot.diagnolForwardL(isContinuous);
+		}
+		if (keyCode == KeyEvent.VK_4) {
+			robot.diagnolForwardR(isContinuous);
+		}
+		if(keyCode == KeyEvent.VK_5){
+			robot.diagnolBackwardR(isContinuous);
+		}
+		if(keyCode == KeyEvent.VK_6){
+			robot.diagnolBackwardL(isContinuous);
+		}
+		if (keyCode == KeyEvent.VK_7) {
 			robot.cameraLow();
 		}
-		if (keyCode == KeyEvent.VK_N) {
+		if (keyCode == KeyEvent.VK_8) {
 			robot.cameraMid();
 	}
-		if (keyCode == KeyEvent.VK_T) {
+		if (keyCode == KeyEvent.VK_9) {
 			robot.cameraHigh();
 		}
-//		if (keyCode == KeyEvent.VK_H) {
-//			robot.goHome();
-//		}
-//		if(keyCode ==KeyEvent.VK_SPACE){
-//			robot.stopMovement();
-//		}
-		 if (keyCode == KeyEvent.VK_1){
-			 robot.diagnolForwardL(isContinuous);
+		if (keyCode == KeyEvent.VK_H) {
+			robot.goHome();
 		}
-		 if (keyCode == KeyEvent.VK_2){
-			 robot.diagnolForwardR(isContinuous); 
-		 }
-	 if(keyCode == KeyEvent.VK_3){
+    	if(keyCode ==KeyEvent.VK_SPACE){
+			robot.stopMovement();
+		}
+	 if(keyCode == KeyEvent.VK_L){
 	 robot.rotateLeft20(isContinuous);
 	 }
-	 if(keyCode == KeyEvent.VK_4){
+	 if(keyCode == KeyEvent.VK_R){
 		 robot.rotateRight20(isContinuous); 
 	 }
-		 if(keyCode == KeyEvent.VK_5){
+		 if(keyCode == KeyEvent.VK_B){
 			 System.out.println(robot.getBatteryPercent() + "% battery remaining."); 
 		 }
 //		 if(keyCode == KeyEvent.VK_6){
@@ -117,14 +119,23 @@ public class KeyEventDemo extends RJRobot implements KeyListener {
 
 	public static void main(String[] args) {
 		
-		KeyEventDemo KED = new KeyEventDemo("192.168.1.230", "admin", "gtri2012");
+		KeyEventDemo KED = new KeyEventDemo("192.168.1.231", "admin", "gtri2012");
 		
 		String WindowName = "Rovio Camera";
 		CanvasFrame canvas = new CanvasFrame(WindowName, CanvasFrame.getDefaultGamma());
 		
-		Frame frame = new Frame();
+		final Frame frame = new Frame();
 		frame.addKeyListener(KED);
 		frame.setVisible(true);
+		frame.setBounds(0, 0, 100, 100);
+		frame.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e)
+			{
+				frame.dispose();
+				robot.stopMovement();
+				System.exit(0);
+			}
+		});
 		while (frame.isVisible()) {
 
 			java.awt.Image rovioImg = KED.robot.getImage();

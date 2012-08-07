@@ -25,7 +25,7 @@ import java.util.Vector;
 public class RJRobot {
 
 	private String _IP, _username, _password, _baseURL;
-	private Thread _continuousThread;
+	private Thread _continuousThread = new Thread();
 	
 	/**
 	 * @author Matthew Barulic
@@ -422,7 +422,7 @@ public class RJRobot {
 			}
 		}
 	}
-	public boolean diagnolBackwardsR(boolean continuous) {
+	public boolean diagnolBackwardR(boolean continuous) {
 		if(_continuousThread.isAlive())
 			_continuousThread.interrupt();
 		if(continuous) {
@@ -453,7 +453,7 @@ public class RJRobot {
 			}
 		}
 	}
-	public boolean diagnolBackwardsL(boolean continuous) {
+	public boolean diagnolBackwardL(boolean continuous) {
 		if(_continuousThread.isAlive())
 			_continuousThread.interrupt();
 		if(continuous) {
@@ -513,6 +513,29 @@ public class RJRobot {
 		try {
 
 			URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=18&drive=13");
+
+			URLConnection uc = url.openConnection();
+			uc.setDoOutput(true);
+
+			BufferedReader in = new BufferedReader(new InputStreamReader(uc.getInputStream()));
+			// Read anything returned by Rovio and print it
+			String line;
+			while ((line = in.readLine()) != null) {
+				// System.out.println (line);
+			}
+			// Close connection
+			in.close();
+
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	public boolean cameraHigh() {
+		try {
+
+			URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=18&drive=11");
 
 			URLConnection uc = url.openConnection();
 			uc.setDoOutput(true);
@@ -601,11 +624,10 @@ public class RJRobot {
 			return false;
 		}
 	}	
-	
-	public boolean cameraHigh() {
+	public boolean goHome(){
 		try {
 
-			URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=18&drive=11");
+			URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=12");
 
 			URLConnection uc = url.openConnection();
 			uc.setDoOutput(true);
@@ -614,7 +636,7 @@ public class RJRobot {
 			// Read anything returned by Rovio and print it
 			String line;
 			while ((line = in.readLine()) != null) {
-				// System.out.println (line);
+			System.out.println ("Recording on....");
 			}
 			// Close connection
 			in.close();
@@ -624,7 +646,8 @@ public class RJRobot {
 			e.printStackTrace();
 			return false;
 		}
-	}
+	}	
+	
 	
 	public int getBatteryPercent() {
 		try {
@@ -653,6 +676,32 @@ public class RJRobot {
 			return -1;
 		}
 	}
+	public boolean stopMovement() {
+		if(_continuousThread.isAlive())
+			_continuousThread.interrupt();
+		try {
+
+			URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=0&drive=12");
+
+			URLConnection uc = url.openConnection();
+			uc.setDoOutput(true);
+
+			BufferedReader in = new BufferedReader(new InputStreamReader(uc.getInputStream()));
+			// Read anything returned by Rovio and print it
+			String line;
+			while ((line = in.readLine()) != null) {
+				// System.out.println (line);
+			}
+			// Close connection
+			in.close();
+
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}	
+	
 	public boolean setBlueLights(boolean fL, boolean mL, boolean bL, boolean fR, boolean mR, boolean bR) {
 		int val = 0; 
 		if(fL) val +=1; 
@@ -683,7 +732,7 @@ public class RJRobot {
 		}
 	try {
 
-		URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=19&LIGHT=0"+ LIGHT = val);
+		URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=19&LIGHT=val"); 
 
 		URLConnection uc = url.openConnection();
 		uc.setDoOutput(true);
@@ -722,10 +771,7 @@ try {
 	return false;
 }
 }
-	
-	
-	
-	private class RJContinuousRunnable implements Runnable
+  private class RJContinuousRunnable implements Runnable
 	{
 		String _command;
 		RJRobot _robot;
