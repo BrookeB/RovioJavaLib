@@ -50,33 +50,28 @@ public class RJRobot {
 	 * 
 	 * @param cmd
 	 */
-	public void SendCommand(String cmd) {
+	public boolean SendCommand(String cmd) {
+		try {
+			
+			URL url = new URL(_baseURL + cmd);
 
-		// TODO As this is part of a library, to be accessed from code, wouldn't
-		// it make more sense to just use the _IP member the class was
-		// initialized with?
+			URLConnection uc = url.openConnection();
+			uc.setDoOutput(true);
 
-		// /This code 1st prompts the user to enter his or her; Rovio Ip Address
-		// before beginning
-		/*
-		 * String ipStr =
-		 * JOptionPane.showInputDialog("Please enter your Rovio's Ip Address?");
-		 * int ip = Integer.parseInt(ipStr);
-		 * JOptionPane.showMessageDialog(null,"Is this your"+ ip
-		 * +"hope this is correct");
-		 * 
-		 * Object ip1Str; Object ip1;
-		 * 
-		 * if(ip1Str != ip1) //TODO How can I state "if you type yes  move on";
-		 * but "if you type in no retype." I am unclear if i am correct at this
-		 * part of the program?? {
-		 * System.out.println("Please enter the correct value"); String ipStr1 =
-		 * JOptionPane.showInputDialog("Please enter your Rovio's Ip Address?");
-		 * int int1 = Integer.parseInt(ipStr1);
-		 * JOptionPane.showMessageDialog(null
-		 * ,"This is the Ip Address you reentered"+ip1+"hope this is correct");
-		 * }
-		 */
+			BufferedReader in = new BufferedReader(new InputStreamReader(uc.getInputStream()));
+			// Read anything returned by Rovio and print it
+			String line;
+			while ((line = in.readLine()) != null) {
+				// System.out.println (line);
+			}
+			// Close connection
+			in.close();
+
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	/**
@@ -303,6 +298,130 @@ public class RJRobot {
 			}
 		}
 	}
+	public boolean diagnolForwardL(boolean continuous) {
+		if(_continuousThread.isAlive())
+			_continuousThread.interrupt();
+		if(continuous) {
+			_continuousThread = new Thread(new RJContinuousRunnable(100, this, "rev.cgi?Cmd=nav&action=18&drive=7&speed=5"));
+			_continuousThread.start();
+			return true;
+		} else {
+			try {
+	
+				URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=18&drive=2&speed=5");
+	
+				URLConnection uc = url.openConnection();
+				uc.setDoOutput(true);
+	
+				BufferedReader in = new BufferedReader(new InputStreamReader(uc.getInputStream()));
+				// Read anything returned by Rovio and print it
+				String line;
+				while ((line = in.readLine()) != null) {
+					// System.out.println (line);
+				}
+				// Close connection
+				in.close();
+	
+				return true;
+			} catch (Exception e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
+	}
+	public boolean diagnolForwardR(boolean continuous) {
+		if(_continuousThread.isAlive())
+			_continuousThread.interrupt();
+		if(continuous) {
+			_continuousThread = new Thread(new RJContinuousRunnable(100, this, "rev.cgi?Cmd=nav&action=18&drive=8&speed=5"));
+			_continuousThread.start();
+			return true;
+		} else {
+			try {
+	
+				URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=18&drive=2&speed=5");
+	
+				URLConnection uc = url.openConnection();
+				uc.setDoOutput(true);
+	
+				BufferedReader in = new BufferedReader(new InputStreamReader(uc.getInputStream()));
+				// Read anything returned by Rovio and print it
+				String line;
+				while ((line = in.readLine()) != null) {
+					// System.out.println (line);
+				}
+				// Close connection
+				in.close();
+	
+				return true;
+			} catch (Exception e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
+	}
+	public boolean diagnolBackwardsR(boolean continuous) {
+		if(_continuousThread.isAlive())
+			_continuousThread.interrupt();
+		if(continuous) {
+			_continuousThread = new Thread(new RJContinuousRunnable(100, this, "rev.cgi?Cmd=nav&action=18&drive=10&speed=5"));
+			_continuousThread.start();
+			return true;
+		} else {
+			try {
+	
+				URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=18&drive=2&speed=5");
+	
+				URLConnection uc = url.openConnection();
+				uc.setDoOutput(true);
+	
+				BufferedReader in = new BufferedReader(new InputStreamReader(uc.getInputStream()));
+				// Read anything returned by Rovio and print it
+				String line;
+				while ((line = in.readLine()) != null) {
+					// System.out.println (line);
+				}
+				// Close connection
+				in.close();
+	
+				return true;
+			} catch (Exception e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
+	}
+	public boolean diagnolBackwardsL(boolean continuous) {
+		if(_continuousThread.isAlive())
+			_continuousThread.interrupt();
+		if(continuous) {
+			_continuousThread = new Thread(new RJContinuousRunnable(100, this, "rev.cgi?Cmd=nav&action=18&drive=9&speed=5"));
+			_continuousThread.start();
+			return true;
+		} else {
+			try {
+	
+				URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=18&drive=2&speed=5");
+	
+				URLConnection uc = url.openConnection();
+				uc.setDoOutput(true);
+	
+				BufferedReader in = new BufferedReader(new InputStreamReader(uc.getInputStream()));
+				// Read anything returned by Rovio and print it
+				String line;
+				while ((line = in.readLine()) != null) {
+					// System.out.println (line);
+				}
+				// Close connection
+				in.close();
+	
+				return true;
+			} catch (Exception e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
+	}
 
 	public boolean cameraLow() {
 		try {
@@ -351,7 +470,76 @@ public class RJRobot {
 			return false;
 		}
 	}
+	public boolean setPath(){
+	try {
 
+		URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=2");
+
+		URLConnection uc = url.openConnection();
+		uc.setDoOutput(true);
+
+		BufferedReader in = new BufferedReader(new InputStreamReader(uc.getInputStream()));
+		// Read anything returned by Rovio and print it
+		String line;
+		while ((line = in.readLine()) != null) {
+		System.out.println ("Recording on....");
+		}
+		// Close connection
+		in.close();
+
+		return true;
+	} catch (Exception e) {
+		e.printStackTrace();
+		return false;
+	}
+}
+	public boolean stopPath(){
+		try {
+
+			URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=value&name=n_value");
+
+			URLConnection uc = url.openConnection();
+			uc.setDoOutput(true);
+
+			BufferedReader in = new BufferedReader(new InputStreamReader(uc.getInputStream()));
+			// Read anything returned by Rovio and print it
+			String line;
+			while ((line = in.readLine()) != null) {
+			System.out.println ("Recording on....");
+			}
+			// Close connection
+			in.close();
+
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}	
+	public boolean playPath(){
+		try {
+
+			URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=6");
+
+			URLConnection uc = url.openConnection();
+			uc.setDoOutput(true);
+
+			BufferedReader in = new BufferedReader(new InputStreamReader(uc.getInputStream()));
+			// Read anything returned by Rovio and print it
+			String line;
+			while ((line = in.readLine()) != null) {
+			System.out.println ("Recording on....");
+			}
+			// Close connection
+			in.close();
+
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}	
+	
 	public boolean cameraHigh() {
 		try {
 
@@ -403,6 +591,77 @@ public class RJRobot {
 			return -1;
 		}
 	}
+	public boolean setBlueLights(boolean fL, boolean mL, boolean bL, boolean fR, boolean mR, boolean bR) {
+		int val = 0; 
+		if(fL) val +=1; 
+		if(mL)val += 2; 
+		if(bL) val += 4; 
+		if(fR) val += 8; 
+		if(mR) val += 16;
+		if(bR) val += 32; 		
+		try {
+
+			URL url = new URL(_baseURL + "debug.cgi?action=write_mem&address= 0xC57E4&size=0x1&value=0x1A");
+
+			URLConnection uc = url.openConnection();
+			uc.setDoOutput(true);
+
+			BufferedReader in = new BufferedReader(new InputStreamReader(uc.getInputStream()));
+			// Read anything returned by Rovio and print it
+			String line;
+			while ((line = in.readLine()) != null) {
+				// System.out.println (line);
+			}
+			// Close connection
+			in.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	try {
+
+		URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=19&LIGHT=0");
+
+		URLConnection uc = url.openConnection();
+		uc.setDoOutput(true);
+
+		BufferedReader in = new BufferedReader(new InputStreamReader(uc.getInputStream()));
+		// Read anything returned by Rovio and print it
+		String line;
+		while ((line = in.readLine()) != null) {
+			// System.out.println (line);
+		}
+		// Close connection
+		in.close();
+
+	} catch (Exception e) {
+		e.printStackTrace();
+		return false;
+	}
+try {
+
+	URL url = new URL(_baseURL + "debug.cgi?action=write_mem&address=0xC57E4&size=0x1&value=0x18");
+
+	URLConnection uc = url.openConnection();
+	uc.setDoOutput(true);
+
+	BufferedReader in = new BufferedReader(new InputStreamReader(uc.getInputStream()));
+	// Read anything returned by Rovio and print it
+	String line;
+	while ((line = in.readLine()) != null) {
+		// System.out.println (line);
+	}
+	// Close connection
+	in.close();
+   return true;
+} catch (Exception e) {
+	e.printStackTrace();
+	return false;
+}
+}
+	
+	
 	
 	private class RJContinuousRunnable implements Runnable
 	{
