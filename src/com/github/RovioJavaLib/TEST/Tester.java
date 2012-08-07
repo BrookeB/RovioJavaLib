@@ -14,11 +14,11 @@ public class Tester {
 		try {
 			RJRobot robot = new RJRobot("192.168.1.233","admin","Cfire19");
 			
-			System.out.println(robot.moveForward());
+			System.out.println(robot.moveForward(true));
 				Thread.sleep(1000);
-			System.out.println(robot.rotateLeft());
+			System.out.println(robot.rotateLeft(true));
 				Thread.sleep(1000);
-			System.out.println(robot.rotateRight());
+			System.out.println(robot.rotateRight(true));
 			
 			Image img = robot.getImage();
 			
