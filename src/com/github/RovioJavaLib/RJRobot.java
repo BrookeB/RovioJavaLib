@@ -170,6 +170,37 @@ public class RJRobot {
 			}
 		}
 	}
+	public boolean rotateRight20(boolean continuous) {
+		if(_continuousThread.isAlive())
+			_continuousThread.interrupt();
+		if(continuous) {
+			_continuousThread = new Thread(new RJContinuousRunnable(100, this, "rev.cgi?Cmd=nav&action=18&drive=18&speed=5"));
+			_continuousThread.start();
+			return true;
+		} else {
+			try {
+	
+				URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=18&drive=18&speed=5");
+	
+				URLConnection uc = url.openConnection();
+				uc.setDoOutput(true);
+	
+				BufferedReader in = new BufferedReader(new InputStreamReader(uc.getInputStream()));
+				// Read anything returned by Rovio and print it
+				String line;
+				while ((line = in.readLine()) != null) {
+					// System.out.println (line);
+				}
+				// Close connection
+				in.close();
+	
+				return true;
+			} catch (Exception e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
+	}
 
 	public boolean rotateLeft(boolean continuous) {
 		if(_continuousThread.isAlive())
@@ -182,6 +213,37 @@ public class RJRobot {
 			try {
 	
 				URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=18&drive=5&speed=5");
+	
+				URLConnection uc = url.openConnection();
+				uc.setDoOutput(true);
+	
+				BufferedReader in = new BufferedReader(new InputStreamReader(uc.getInputStream()));
+				// Read anything returned by Rovio and print it
+				String line;
+				while ((line = in.readLine()) != null) {
+					// System.out.println (line);
+				}
+				// Close connection
+				in.close();
+	
+				return true;
+			} catch (Exception e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
+	}
+	public boolean rotateLeft20(boolean continuous) {
+		if(_continuousThread.isAlive())
+			_continuousThread.interrupt();
+		if(continuous) {
+			_continuousThread = new Thread(new RJContinuousRunnable(100, this, "rev.cgi?Cmd=nav&action=18&drive=17&speed=5"));
+			_continuousThread.start();
+			return true;
+		} else {
+			try {
+	
+				URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=17&drive=5&speed=5");
 	
 				URLConnection uc = url.openConnection();
 				uc.setDoOutput(true);
@@ -621,7 +683,7 @@ public class RJRobot {
 		}
 	try {
 
-		URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=19&LIGHT=0");
+		URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=19&LIGHT=0"+ LIGHT = val);
 
 		URLConnection uc = url.openConnection();
 		uc.setDoOutput(true);
