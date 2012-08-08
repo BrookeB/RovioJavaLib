@@ -243,7 +243,7 @@ public class RJRobot {
 		} else {
 			try {
 	
-				URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=17&drive=5&speed=5");
+				URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=18&drive=17&speed=5");
 	
 				URLConnection uc = url.openConnection();
 				uc.setDoOutput(true);
@@ -370,7 +370,7 @@ public class RJRobot {
 		} else {
 			try {
 	
-				URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=18&drive=2&speed=5");
+				URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=18&drive=7&speed=5");
 	
 				URLConnection uc = url.openConnection();
 				uc.setDoOutput(true);
@@ -401,7 +401,7 @@ public class RJRobot {
 		} else {
 			try {
 	
-				URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=18&drive=2&speed=5");
+				URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=18&drive=8&speed=5");
 	
 				URLConnection uc = url.openConnection();
 				uc.setDoOutput(true);
@@ -432,7 +432,7 @@ public class RJRobot {
 		} else {
 			try {
 	
-				URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=18&drive=2&speed=5");
+				URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=18&drive=10&speed=5");
 	
 				URLConnection uc = url.openConnection();
 				uc.setDoOutput(true);
@@ -463,7 +463,7 @@ public class RJRobot {
 		} else {
 			try {
 	
-				URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=18&drive=2&speed=5");
+				URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=18&drive=9&speed=5");
 	
 				URLConnection uc = url.openConnection();
 				uc.setDoOutput(true);

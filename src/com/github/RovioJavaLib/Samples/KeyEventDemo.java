@@ -23,61 +23,63 @@ public class KeyEventDemo extends RJRobot implements KeyListener {
 	public void keyPressed(KeyEvent e) {
 		int keyCode = e.getKeyCode();
 		//System.out.println(keyCode);
-
-		if (keyCode == KeyEvent.VK_RIGHT) {
-			robot.moveRight(isContinuous);
-		}
-		if (keyCode == KeyEvent.VK_LEFT) {
-			robot.moveLeft(isContinuous);
-		}
-		if (keyCode == KeyEvent.VK_UP) {
+ 
+		if(keyCode == KeyEvent.VK_UP){
 			robot.moveForward(isContinuous);
 		}
-		if (keyCode == KeyEvent.VK_DOWN) {
+		if(keyCode == KeyEvent.VK_DOWN){
 			robot.moveBackwards(isContinuous);
 		}
-		if (keyCode == KeyEvent.VK_1) {
-			robot.rotateLeft(isContinuous);
+		if(keyCode == KeyEvent.VK_LEFT){
+			robot.moveLeft(isContinuous);
 		}
-		if (keyCode == KeyEvent.VK_2) {
-			robot.rotateRight(isContinuous);
+		if(keyCode == KeyEvent.VK_RIGHT){
+			robot.moveRight(isContinuous);
 		}
-		if (keyCode == KeyEvent.VK_3) {
-			robot.diagnolForwardL(isContinuous);
-		}
-		if (keyCode == KeyEvent.VK_4) {
-			robot.diagnolForwardR(isContinuous);
-		}
-		if(keyCode == KeyEvent.VK_5){
-			robot.diagnolBackwardR(isContinuous);
-		}
-		if(keyCode == KeyEvent.VK_6){
+		if(keyCode == KeyEvent.VK_1){
 			robot.diagnolBackwardL(isContinuous);
 		}
-		if (keyCode == KeyEvent.VK_7) {
+		if(keyCode == KeyEvent.VK_2){
+			robot.diagnolBackwardR(isContinuous);
+		}
+		if(keyCode == KeyEvent.VK_3){
+			robot.diagnolForwardL(isContinuous);
+		}
+		if(keyCode == KeyEvent.VK_4){
+			robot.diagnolForwardR(isContinuous);
+		}
+		if(keyCode == KeyEvent.VK_J){
+			robot.rotateLeft(isContinuous);
+		}
+		if(keyCode == KeyEvent.VK_K){
+			robot.rotateLeft20(isContinuous); 
+		}
+		if(keyCode == KeyEvent.VK_L){ 
+			robot.rotateRight(isContinuous);
+		}
+		if(keyCode == KeyEvent.VK_O){
+			robot.rotateRight20(isContinuous);
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		if(keyCode == KeyEvent.VK_A){
 			robot.cameraLow();
 		}
-		if (keyCode == KeyEvent.VK_8) {
+		if(keyCode == KeyEvent.VK_S){
 			robot.cameraMid();
-	}
-		if (keyCode == KeyEvent.VK_9) {
+		}
+		if(keyCode == KeyEvent.VK_D){
 			robot.cameraHigh();
 		}
-		if (keyCode == KeyEvent.VK_H) {
-			robot.goHome();
-		}
-    	if(keyCode ==KeyEvent.VK_SPACE){
-			robot.stopMovement();
-		}
-	 if(keyCode == KeyEvent.VK_L){
-	 robot.rotateLeft20(isContinuous);
-	 }
-	 if(keyCode == KeyEvent.VK_R){
-		 robot.rotateRight20(isContinuous); 
-	 }
-		 if(keyCode == KeyEvent.VK_B){
-			 System.out.println(robot.getBatteryPercent() + "% battery remaining."); 
-		 }
 //		 if(keyCode == KeyEvent.VK_6){
 //			 try {
 //				 robot.setBlueLights(true, false, false, true, false, false);
@@ -99,6 +101,16 @@ public class KeyEventDemo extends RJRobot implements KeyListener {
 //				 
 //			 }
 //		 }
+		 if(keyCode == KeyEvent.VK_B){
+			 System.out.println(robot.getBatteryPercent() + "% battery remaining."); 
+		 }	
+		 
+		 if(keyCode == KeyEvent.VK_HOME){
+			 robot.goHome();
+		 }
+		 if(keyCode == KeyEvent.VK_SPACE){
+			 robot.stopMovement();
+		 }
 		if(keyCode == KeyEvent.VK_C) {
 			isContinuous = !isContinuous;
 			System.out.println( "Continuous motion is " + ((isContinuous)? "on." : "off."));
