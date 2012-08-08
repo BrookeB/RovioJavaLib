@@ -60,17 +60,7 @@ public class KeyEventDemo extends RJRobot implements KeyListener {
 		if(keyCode == KeyEvent.VK_O){
 			robot.rotateRight20(isContinuous);
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+				
 		if(keyCode == KeyEvent.VK_A){
 			robot.cameraLow();
 		}
@@ -80,33 +70,48 @@ public class KeyEventDemo extends RJRobot implements KeyListener {
 		if(keyCode == KeyEvent.VK_D){
 			robot.cameraHigh();
 		}
-//		 if(keyCode == KeyEvent.VK_6){
-//			 try {
-//				 robot.setBlueLights(true, false, false, true, false, false);
-//				 Thread.sleep(10);
-//				 robot.setBlueLights(false, true, false, false, true, false);
-//				 Thread.sleep(10);
-//				 robot.setBlueLights(false, false, true, false, false, true);
-//				 Thread.sleep(10);
-//				 robot.setBlueLights(true, false, false, true, false, false);
-//				 Thread.sleep(10);
-//				 robot.setBlueLights(false, true, false, false, true, false);
-//				 Thread.sleep(10);
-//				 robot.setBlueLights(false, false, true, false, false, true);
-//				 Thread.sleep(10);
-//				 robot.setBlueLights(true, true, true, true, true, true);
-//				 Thread.sleep(10);
-//			 
-//			 } catch (Exception err) {
-//				 
-//			 }
-//		 }
+		if(keyCode == KeyEvent.VK_F){
+			robot.startRecording();
+		}
+		if(keyCode == KeyEvent.VK_T){
+			robot.stopRecording();
+		}
+		if(keyCode == KeyEvent.VK_I){
+			robot.getPathList();
+		}
+		if(keyCode == KeyEvent.VK_U){
+			robot.deletePath();
+		}
+		if(keyCode == KeyEvent.VK_Y){
+			robot.abortRecording(); 
+		}
+		 if(keyCode == KeyEvent.VK_6){
+			 try {
+				 robot.setBlueLights(true, false, false, true, false, false);
+				 Thread.sleep(10);
+				 robot.setBlueLights(false, true, false, false, true, false);
+				 Thread.sleep(10);
+     			 robot.setBlueLights(false, false, true, false, false, true);
+			     Thread.sleep(10);
+			     robot.setBlueLights(true, false, false, true, false, false);
+				 Thread.sleep(10);
+				 robot.setBlueLights(false, true, false, false, true, false);
+			     Thread.sleep(10);				
+		         robot.setBlueLights(false, false, true, false, false, true);
+				 Thread.sleep(10);
+				 robot.setBlueLights(true, true, true, true, true, true);
+				 Thread.sleep(10);
+			 
+			 } catch (Exception err) {
+			 
+			 }
+		 }
 		 if(keyCode == KeyEvent.VK_B){
 			 System.out.println(robot.getBatteryPercent() + "% battery remaining."); 
 		 }	
 		 
 		 if(keyCode == KeyEvent.VK_HOME){
-			 robot.goHome();
+			 robot.goHomeAndDock();
 		 }
 		 if(keyCode == KeyEvent.VK_SPACE){
 			 robot.stopMovement();
@@ -119,14 +124,11 @@ public class KeyEventDemo extends RJRobot implements KeyListener {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-
+   // TODO Auto-generated method stub
 	}
-
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-
 	}
 
 	public static void main(String[] args) {

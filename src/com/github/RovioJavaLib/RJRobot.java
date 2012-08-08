@@ -5,14 +5,8 @@
 package com.github.RovioJavaLib;
 
 import javax.imageio.ImageIO;
-import javax.swing.JOptionPane;
-
 import java.awt.Image;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.image.*;
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -73,7 +67,6 @@ public class RJRobot {
 			return false;
 		}
 	}
-
 	/**
 	 * @author Matthew Barulic
 	 * @return Returns a frame from Rovio's camera.
@@ -170,6 +163,11 @@ public class RJRobot {
 			}
 		}
 	}
+	/**
+	 * @author Brooke Bosley 
+	 * rotates right by 20 degree angle increments
+	 *            
+	 */
 	public boolean rotateRight20(boolean continuous) {
 		if(_continuousThread.isAlive())
 			_continuousThread.interrupt();
@@ -233,6 +231,11 @@ public class RJRobot {
 			}
 		}
 	}
+	/**
+	 * @author Brooke Bosley
+	 * rotates left by 20 degree angle increments
+	 *            
+	 */
 	public boolean rotateLeft20(boolean continuous) {
 		if(_continuousThread.isAlive())
 			_continuousThread.interrupt();
@@ -555,10 +558,20 @@ public class RJRobot {
 			return false;
 		}
 	}
-	public boolean setPath(){
+	/**
+	 * @author Brooke Bosley 
+	 * startRecording: records a path using the rovios NorthStar features. This code hasn't been adequately tested; so errors will likely be in the code.
+	 * 
+	 * There are several things you must no before using this piece of code. 
+	 *  1st-the rovio will resist going outside NorthStar coverage area while recording paths; 2nd-the rovio will stop recording if coverage is lost
+	 *  & 3rd-the rovio will stop recording if user connection is lost. (found in WowWee Rovio API specifications)
+	 *  
+	 *  please keep those aspects in mind when using the Path features in the rovio library.
+	 */
+	public boolean startRecording(){
 	try {
 
-		URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=2");
+		URL url = new URL(_baseURL + "/rev.cgi?Cmd=nav&action=2");
 
 		URLConnection uc = url.openConnection();
 		uc.setDoOutput(true);
@@ -578,10 +591,14 @@ public class RJRobot {
 		return false;
 	}
 }
-	public boolean stopPath(){
+	/**
+	 * @author Brooke Bosley 
+	 * abortRecording: terminates recording of a path without storing it to flash memory. 
+	 */
+	public boolean abortRecording(){
 		try {
 
-			URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=value&name=n_value");
+			URL url = new URL(_baseURL + "/rev.cgi?Cmd=nav&action=3");
 
 			URLConnection uc = url.openConnection();
 			uc.setDoOutput(true);
@@ -590,7 +607,62 @@ public class RJRobot {
 			// Read anything returned by Rovio and print it
 			String line;
 			while ((line = in.readLine()) != null) {
-			System.out.println ("Recording on....");
+			System.out.println ("Recording aborted....");
+			}
+			// Close connection
+			in.close();
+
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	/**
+	 * @author Brooke Bosley 
+	 * Stops the recording of a path and stores it in its memory.
+	 */
+	public boolean stopRecording(){
+		try {
+
+			URL url = new URL(_baseURL + "/rev.cgi?Cmd=nav&action=4&name=stopRecording");
+
+			URLConnection uc = url.openConnection();
+			uc.setDoOutput(true);
+
+			BufferedReader in = new BufferedReader(new InputStreamReader(uc.getInputStream()));
+			// Read anything returned by Rovio and print it
+			String line;
+			while ((line = in.readLine()) != null) {
+			System.out.println ("Recording stopped....");
+			}
+			// Close connection
+			in.close();
+
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	/**
+	 * @author Brooke Bosley 
+	 * deletes unwanted path.
+	 *            
+	 */
+	public boolean deletePath(){
+		try {
+
+			URL url = new URL(_baseURL + "/rev.cgi?Cmd=nav&action=5&name=deletePath");
+
+			URLConnection uc = url.openConnection();
+			uc.setDoOutput(true);
+
+			BufferedReader in = new BufferedReader(new InputStreamReader(uc.getInputStream()));
+			// Read anything returned by Rovio and print it
+			String line;
+			while ((line = in.readLine()) != null) {
+			System.out.println ("Recording deleted....");
 			}
 			// Close connection
 			in.close();
@@ -601,11 +673,14 @@ public class RJRobot {
 			return false;
 		}
 	}	
-	public boolean playPath(){
+	/**
+	 * @author Brooke Bosley 
+	 * returns a list of recorded paths.
+	 *            
+	 */
+	public boolean getPathList(){
 		try {
-
-			URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=6");
-
+			URL url = new URL(_baseURL + "/rev.cgi?Cmd=nav&action=6");
 			URLConnection uc = url.openConnection();
 			uc.setDoOutput(true);
 
@@ -613,7 +688,7 @@ public class RJRobot {
 			// Read anything returned by Rovio and print it
 			String line;
 			while ((line = in.readLine()) != null) {
-			System.out.println ("Recording on....");
+				// System.out.println (line);
 			}
 			// Close connection
 			in.close();
@@ -624,10 +699,10 @@ public class RJRobot {
 			return false;
 		}
 	}	
-	public boolean goHome(){
+	public boolean playPathForward(){
 		try {
 
-			URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=12");
+			URL url = new URL(_baseURL + "/rev.cgi?Cmd=nav&action=7");
 
 			URLConnection uc = url.openConnection();
 			uc.setDoOutput(true);
@@ -636,7 +711,7 @@ public class RJRobot {
 			// Read anything returned by Rovio and print it
 			String line;
 			while ((line = in.readLine()) != null) {
-			System.out.println ("Recording on....");
+				// System.out.println (line);
 			}
 			// Close connection
 			in.close();
@@ -647,7 +722,122 @@ public class RJRobot {
 			return false;
 		}
 	}	
+	public boolean playPathBackward(){
+		try {
+
+			URL url = new URL(_baseURL + "/rev.cgi?Cmd=nav&action=8");
+
+			URLConnection uc = url.openConnection();
+			uc.setDoOutput(true);
+
+			BufferedReader in = new BufferedReader(new InputStreamReader(uc.getInputStream()));
+			// Read anything returned by Rovio and print it
+			String line;
+			while ((line = in.readLine()) != null) {
+				// System.out.println (line);
+			}
+			// Close connection
+			in.close();
+
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	public boolean stopPlaying(){
+		try {
+
+			URL url = new URL(_baseURL + "/rev.cgi?Cmd=nav&action=9");
+
+			URLConnection uc = url.openConnection();
+			uc.setDoOutput(true);
+
+			BufferedReader in = new BufferedReader(new InputStreamReader(uc.getInputStream()));
+			// Read anything returned by Rovio and print it
+			String line;
+			while ((line = in.readLine()) != null) {
+				// System.out.println (line);
+			}
+			// Close connection
+			in.close();
+
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	public boolean pausePlaying(){
+		try {
+
+			URL url = new URL(_baseURL + "/rev.cgi?Cmd=nav&action=10");
+
+			URLConnection uc = url.openConnection();
+			uc.setDoOutput(true);
+
+			BufferedReader in = new BufferedReader(new InputStreamReader(uc.getInputStream()));
+			// Read anything returned by Rovio and print it
+			String line;
+			while ((line = in.readLine()) != null) {
+				// System.out.println (line);
+			}
+			// Close connection
+			in.close();
+
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}	
+	public boolean renamePath(){
+		try {
+
+			URL url = new URL(_baseURL + "/rev.cgi?Cmd=nav&action=11");
+
+			URLConnection uc = url.openConnection();
+			uc.setDoOutput(true);
+
+			BufferedReader in = new BufferedReader(new InputStreamReader(uc.getInputStream()));
+			// Read anything returned by Rovio and print it
+			String line;
+			while ((line = in.readLine()) != null) {
+				// System.out.println (line);
+			}
+			// Close connection
+			in.close();
+
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}		
 	
+	public boolean goHomeAndDock(){
+		try {
+
+			URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=13");
+
+			URLConnection uc = url.openConnection();
+			uc.setDoOutput(true);
+
+			BufferedReader in = new BufferedReader(new InputStreamReader(uc.getInputStream()));
+			// Read anything returned by Rovio and print it
+			String line;
+			while ((line = in.readLine()) != null) {
+				// System.out.println (line);
+			}
+			// Close connection
+			in.close();
+
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}	
 	
 	public int getBatteryPercent() {
 		try {
@@ -703,7 +893,7 @@ public class RJRobot {
 	}	
 	
 	public boolean setBlueLights(boolean fL, boolean mL, boolean bL, boolean fR, boolean mR, boolean bR) {
-		int val = 0; 
+		int val = 0;
 		if(fL) val +=1; 
 		if(mL)val += 2; 
 		if(bL) val += 4; 
@@ -732,8 +922,9 @@ public class RJRobot {
 		}
 	try {
 
-		URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=19&LIGHT=val"); 
-
+		URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=19&LIGHT=0LIGHT=val"); 
+		
+				
 		URLConnection uc = url.openConnection();
 		uc.setDoOutput(true);
 
