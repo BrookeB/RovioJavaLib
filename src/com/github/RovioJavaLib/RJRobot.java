@@ -1,6 +1,6 @@
 /**
  *This provides simple commands to control the Rovio Robot through Java
- * @author Brooke Bosley
+ * @author Brooke Bosley, Jason Bick & Matthew Barulic
  */
 package com.github.RovioJavaLib;
 
@@ -13,9 +13,6 @@ import java.io.InputStreamReader;
 import java.net.*;
 import java.util.Vector;
 
-/**
- *
- */
 public class RJRobot {
 
 	private String _IP, _username, _password, _baseURL;
@@ -571,7 +568,7 @@ public class RJRobot {
 	public boolean startRecording(){
 	try {
 
-		URL url = new URL(_baseURL + "/rev.cgi?Cmd=nav&action=2");
+		URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=2");
 
 		URLConnection uc = url.openConnection();
 		uc.setDoOutput(true);
@@ -598,7 +595,7 @@ public class RJRobot {
 	public boolean abortRecording(){
 		try {
 
-			URL url = new URL(_baseURL + "/rev.cgi?Cmd=nav&action=3");
+			URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=3");
 
 			URLConnection uc = url.openConnection();
 			uc.setDoOutput(true);
@@ -653,7 +650,7 @@ public class RJRobot {
 	public boolean deletePath(){
 		try {
 
-			URL url = new URL(_baseURL + "/rev.cgi?Cmd=nav&action=5&name=deletePath");
+			URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=5&name=deletePath");
 
 			URLConnection uc = url.openConnection();
 			uc.setDoOutput(true);
@@ -680,7 +677,7 @@ public class RJRobot {
 	 */
 	public boolean getPathList(){
 		try {
-			URL url = new URL(_baseURL + "/rev.cgi?Cmd=nav&action=6");
+			URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=6");
 			URLConnection uc = url.openConnection();
 			uc.setDoOutput(true);
 
@@ -702,7 +699,7 @@ public class RJRobot {
 	public boolean playPathForward(){
 		try {
 
-			URL url = new URL(_baseURL + "/rev.cgi?Cmd=nav&action=7");
+			URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=7");
 
 			URLConnection uc = url.openConnection();
 			uc.setDoOutput(true);
@@ -725,7 +722,7 @@ public class RJRobot {
 	public boolean playPathBackward(){
 		try {
 
-			URL url = new URL(_baseURL + "/rev.cgi?Cmd=nav&action=8");
+			URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=8");
 
 			URLConnection uc = url.openConnection();
 			uc.setDoOutput(true);
@@ -748,7 +745,7 @@ public class RJRobot {
 	public boolean stopPlaying(){
 		try {
 
-			URL url = new URL(_baseURL + "/rev.cgi?Cmd=nav&action=9");
+			URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=9");
 
 			URLConnection uc = url.openConnection();
 			uc.setDoOutput(true);
@@ -771,7 +768,7 @@ public class RJRobot {
 	public boolean pausePlaying(){
 		try {
 
-			URL url = new URL(_baseURL + "/rev.cgi?Cmd=nav&action=10");
+			URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=10");
 
 			URLConnection uc = url.openConnection();
 			uc.setDoOutput(true);
@@ -790,11 +787,15 @@ public class RJRobot {
 			e.printStackTrace();
 			return false;
 		}
-	}	
+	}
+	/**
+	 * @author Brooke Bosley 
+	 * rename the old path. 
+	 */
 	public boolean renamePath(){
 		try {
 
-			URL url = new URL(_baseURL + "/rev.cgi?Cmd=nav&action=11");
+			URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=11&name=OldPathName&newname=NewPathName");
 
 			URLConnection uc = url.openConnection();
 			uc.setDoOutput(true);
@@ -814,7 +815,10 @@ public class RJRobot {
 			return false;
 		}
 	}		
-	
+	/**
+	 * @author Brooke Bosley 
+	 * drives to home location and docks itself. 
+	 */
 	public boolean goHomeAndDock(){
 		try {
 
@@ -922,9 +926,11 @@ public class RJRobot {
 		}
 	try {
 
-		URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=19&LIGHT=0LIGHT=val"); 
 		
-				
+		URL url = new URL(_baseURL + "rev.cgi?Cmd=nav&action=19&LIGHT=" + val);
+		
+		
+						
 		URLConnection uc = url.openConnection();
 		uc.setDoOutput(true);
 

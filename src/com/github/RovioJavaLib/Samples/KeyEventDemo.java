@@ -85,7 +85,7 @@ public class KeyEventDemo extends RJRobot implements KeyListener {
 		if(keyCode == KeyEvent.VK_Y){
 			robot.abortRecording(); 
 		}
-		 if(keyCode == KeyEvent.VK_6){
+		 if(keyCode == KeyEvent.VK_N){
 			 try {
 				 robot.setBlueLights(true, false, false, true, false, false);
 				 Thread.sleep(10);
